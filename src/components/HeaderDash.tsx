@@ -426,6 +426,7 @@ export function HeaderDash() {
                                 flexWrap: 'wrap',
                                 flex: 1
                             }}>
+                                <Text as="span" variant="bodySm" fontWeight="medium" tone="subdued">Applied filters:</Text>
                                 {activeFilters.map((filter) => (
                                     <Tag key={filter} onRemove={() => handleRemoveFilter(filter)}>{filter}</Tag>
                                 ))}
