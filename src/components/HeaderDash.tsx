@@ -142,16 +142,15 @@ export function HeaderDash() {
                 justifyContent: 'space-between',
                 padding: '0 16px',
                 flexShrink: 0,
-                zIndex: 30
+                zIndex: 30,
+                position: 'relative' // Needed for absolute centering of logo
             }}>
                 {/* Left: Menu & Brand & Breadcrumb */}
                 <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
                     <div style={{ cursor: 'pointer', color: '#202223' }}>
                         <Icon source={MenuIcon} tone="base" />
                     </div>
-                    <div style={{ display: 'flex', alignItems: 'baseline', gap: '4px' }}>
-                        <Text as="span" variant="headingMd" fontWeight="bold">ascribe</Text>
-                    </div>
+
 
                     {/* Separator */}
                     <div style={{ width: '1px', height: '16px', backgroundColor: '#e1e3e5', margin: '0 8px' }} />
@@ -164,6 +163,18 @@ export function HeaderDash() {
                         <div style={{ display: 'flex', alignItems: 'center', color: '#8c9196', paddingTop: '3px' }}><Icon source={ChevronRightIcon} tone="subdued" /></div>
                         <Text as="span" fontWeight="semibold">project name 1</Text>
                     </div>
+                </div>
+
+                {/* Center: Absolute Brand Logo */}
+                <div style={{
+                    position: 'absolute',
+                    left: '50%',
+                    transform: 'translateX(-50%)',
+                    display: 'flex',
+                    alignItems: 'baseline',
+                    gap: '4px'
+                }}>
+                    <Text as="span" variant="headingMd" fontWeight="bold">ascribe</Text>
                 </div>
 
                 {/* Right: Account & User Context */}
