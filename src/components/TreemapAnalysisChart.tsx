@@ -25,6 +25,7 @@ const data = [
 ];
 
 const CustomContent = (props: any) => {
+    // @ts-ignore
     const { root, depth, x, y, width, height, index, payload, colors, rank, name, value, pct } = props;
 
     return (

@@ -1,6 +1,6 @@
 import { Text, Button, BlockStack, TextField, Icon, Tabs, Popover } from '@shopify/polaris';
-import { XIcon, ArrowLeftIcon, SearchIcon, ExportIcon, EditIcon } from '@shopify/polaris-icons';
-import { useState, useMemo, useCallback, type MouseEvent } from 'react';
+import { XIcon, ArrowLeftIcon, SearchIcon, EditIcon } from '@shopify/polaris-icons';
+import { useState, useMemo, useCallback } from 'react';
 
 // Common interfaces
 interface ResponseDrawerProps {
@@ -75,7 +75,7 @@ const InteractiveHighlight = ({
 }) => {
     const [active, setActive] = useState(false);
 
-    const togglePopover = useCallback(() => setActive((active) => !active), []);
+
 
     // We use a small delay to prevent flickering, though standard hover works too
     const handleMouseEnter = useCallback(() => setActive(true), []);
@@ -134,8 +134,7 @@ const InteractiveHighlight = ({
                             variant="plain"
                             size="slim"
                             icon={EditIcon}
-                            onClick={(e) => {
-                                e.stopPropagation();
+                            onClick={() => {
                                 console.log('Edit code logic here for:', code);
                             }}
                         >
@@ -371,8 +370,8 @@ export function ResponseDrawerTooltip({ isOpen, onClose }: ResponseDrawerProps) 
                                             cursor: 'pointer',
                                             transition: 'background-color 0.2s',
                                         }}
-                                        onMouseEnter={(e) => e.currentTarget.style.backgroundColor = '#f9fafb'}
-                                        onMouseLeave={(e) => e.currentTarget.style.backgroundColor = 'transparent'}
+                                        onMouseEnter={(e: any) => e.currentTarget.style.backgroundColor = '#f9fafb'}
+                                        onMouseLeave={(e: any) => e.currentTarget.style.backgroundColor = 'transparent'}
                                     >
                                         <div style={{ marginBottom: '8px' }}>
                                             <Text as="p" variant="bodyMd">
@@ -383,7 +382,7 @@ export function ResponseDrawerTooltip({ isOpen, onClose }: ResponseDrawerProps) 
 
                                         <div
                                             style={{ display: 'flex', gap: '12px', alignItems: 'center', marginTop: '8px' }}
-                                            onClick={(e: MouseEvent<HTMLDivElement>) => e.stopPropagation()}
+                                            onClick={(e: any) => e.stopPropagation()}
                                         >
                                             <Button variant="plain" onClick={() => {
                                                 setSelectedComment(comment);

@@ -1,6 +1,6 @@
-import { Text, Button, BlockStack, TextField, Icon, Tabs, Popover, Modal, Scrollable } from '@shopify/polaris';
-import { XIcon, ArrowLeftIcon, SearchIcon, ExportIcon, EditIcon, ViewIcon } from '@shopify/polaris-icons';
-import { useState, useMemo, useCallback, useRef, type MouseEvent } from 'react';
+import { Text, Button, BlockStack, TextField, Icon, Tabs, Popover, Modal } from '@shopify/polaris';
+import { XIcon, SearchIcon, EditIcon } from '@shopify/polaris-icons';
+import { useState, useMemo, useCallback, useRef } from 'react';
 
 // Common interfaces
 interface ResponseDrawerProps {
@@ -116,10 +116,10 @@ const TextAnalysisBlock = ({
     const [activeRect, setActiveRect] = useState<Rect | null>(null);
 
     // Timeout refs for smooth hover handling
-    const openTimeout = useRef<NodeJS.Timeout>();
-    const closeTimeout = useRef<NodeJS.Timeout>();
+    const openTimeout = useRef<any>();
+    const closeTimeout = useRef<any>();
 
-    const handleMouseEnterSegment = (event: MouseEvent<HTMLElement>, data: HighlightData) => {
+    const handleMouseEnterSegment = (event: any, data: HighlightData) => {
         // Interactivity is ALWAYS active for visible segments
         const rect = event.currentTarget.getBoundingClientRect();
 
@@ -188,7 +188,7 @@ const TextAnalysisBlock = ({
                     return matchedCode ? (
                         <span
                             key={i}
-                            onMouseEnter={(e) => handleMouseEnterSegment(e, matchedCode)}
+                            onMouseEnter={(e: any) => handleMouseEnterSegment(e, matchedCode)}
                             onMouseLeave={handleMouseLeaveSegment}
                             style={{
                                 backgroundColor: highlightColor,
@@ -276,8 +276,7 @@ const TextAnalysisBlock = ({
                                     variant="plain"
                                     size="slim"
                                     icon={activeHighlight.code === null ? undefined : EditIcon}
-                                    onClick={(e) => {
-                                        e.stopPropagation();
+                                    onClick={() => {
                                         setActiveRect(null);
                                         setActiveHighlight(null);
                                         onEditCode(activeHighlight);
@@ -559,8 +558,8 @@ export function ResponseDrawerV3({ isOpen, onClose }: ResponseDrawerProps) {
                                                 transition: 'background 0.2s',
                                                 alignItems: 'center'
                                             }}
-                                            onMouseEnter={(e) => { if (!isSelected) e.currentTarget.style.backgroundColor = '#f4f6f8'; }}
-                                            onMouseLeave={(e) => { if (!isSelected) e.currentTarget.style.backgroundColor = 'transparent'; }}
+                                            onMouseEnter={(e: any) => { if (!isSelected) e.currentTarget.style.backgroundColor = '#f4f6f8'; }}
+                                            onMouseLeave={(e: any) => { if (!isSelected) e.currentTarget.style.backgroundColor = 'transparent'; }}
                                             onClick={() => setSelectedCode(s.code)}
                                         >
                                             <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
@@ -587,8 +586,8 @@ export function ResponseDrawerV3({ isOpen, onClose }: ResponseDrawerProps) {
                                             transition: 'background 0.2s',
                                             backgroundColor: isSelected ? '#f1f8f5' : 'transparent',
                                         }}
-                                        onMouseEnter={(e) => { if (!isSelected) e.currentTarget.style.backgroundColor = '#f4f6f8'; }}
-                                        onMouseLeave={(e) => { if (!isSelected) e.currentTarget.style.backgroundColor = 'transparent'; }}
+                                        onMouseEnter={(e: any) => { if (!isSelected) e.currentTarget.style.backgroundColor = '#f4f6f8'; }}
+                                        onMouseLeave={(e: any) => { if (!isSelected) e.currentTarget.style.backgroundColor = 'transparent'; }}
                                         onClick={() => setSelectedCode(code)}
                                     >
                                         <Text as="span" fontWeight={isSelected ? "bold" : "regular"}>{code}</Text>
