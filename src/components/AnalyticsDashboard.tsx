@@ -14,13 +14,12 @@ import {
     BarChart,
     Bar,
     LabelList,
-    Label
+    Label,
+    Cell
 } from 'recharts';
 import { useState, useCallback } from 'react';
 
-import { CrossTab } from './CrossTab';
 import { ChartActions } from './ChartActions';
-import { CommentsAnalysisChart } from './CommentsAnalysisChart';
 import { DetailsDrawer } from './DetailsDrawer';
 
 const coOccurrenceData = [
@@ -73,106 +72,119 @@ export function AnalyticsDashboard() {
     const [drawerOpen, setDrawerOpen] = useState(false);
     const [drawerTitle, setDrawerTitle] = useState('');
     const [drawerData, setDrawerData] = useState<any>(null);
+    const [viewMode, setViewMode] = useState<'side' | 'modal'>('side');
 
     const handleBarClick = useCallback((data: any) => {
         if (data && data.name) {
-            setDrawerTitle(data.name);
-            setDrawerData(data);
-            setDrawerOpen(true);
+            if (drawerOpen && drawerTitle === data.name) {
+                setDrawerOpen(false);
+            } else {
+                setDrawerTitle(data.name);
+                setDrawerData(data);
+                setDrawerOpen(true);
+            }
         }
-    }, []);
+    }, [drawerOpen, drawerTitle]);
 
     const handleDrawerClose = useCallback(() => {
         setDrawerOpen(false);
     }, []);
 
     return (
-        <Page fullWidth>
+        <div style={{ display: 'flex', height: '100%', overflow: 'hidden', backgroundColor: '#f6f6f7' }}>
+            <div style={{ flex: 1, overflowY: 'auto', minWidth: 0 }}>
+                <Page fullWidth>
+                    <BlockStack gap="500">
+                        {/* KPI Cards Section */}
+                        <Layout>
+                            {/* Main Charts Section */}
+                            {/* Co-Occurrences Chart Section */}
+                            <Layout.Section>
+                                <LegacyCard sectioned>
+                                    <BlockStack gap="400">
+                                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                                            <Text as="h2" variant="headingMd">Murilo - 121825: Co-Occurrences - 20 items</Text>
+                                            <ChartActions />
+                                        </div>
+                                        <div style={{ height: 600 }}>
+                                            <style>{`
+                                                .recharts-wrapper *:focus {
+                                                    outline: none !important;
+                                                }
+                                                .recharts-layer:focus {
+                                                    outline: none !important;
+                                                }
+                                            `}</style>
+                                            <ResponsiveContainer width="100%" height="100%">
+                                                <BarChart
+                                                    layout="vertical"
+                                                    data={coOccurrenceData}
+                                                    margin={{ top: 5, right: 80, left: 20, bottom: 5 }}
+                                                >
+                                                    <CartesianGrid strokeDasharray="3 3" horizontal={false} vertical={true} stroke="#e1e3e5" />
+                                                    <XAxis
+                                                        type="number"
+                                                        tick={{ fontSize: 11, fill: '#6D7175' }}
+                                                        axisLine={{ stroke: '#e1e3e5' }}
+                                                        tickLine={{ stroke: '#e1e3e5' }}
+                                                        domain={[0, 'auto']}
+                                                    >
+                                                        <Label value="Comments" offset={-5} position="insideBottom" style={{ fontSize: 12, fill: '#202223' }} />
+                                                    </XAxis>
+                                                    <YAxis
+                                                        dataKey="name"
+                                                        type="category"
+                                                        width={400}
+                                                        tick={{ fontSize: 11, fill: '#202223' }}
+                                                        interval={0}
+                                                    />
+                                                    <Tooltip
+                                                        content={<CustomTooltip />}
+                                                        cursor={{ fill: 'transparent' }}
+                                                    />
+
+                                                    <Bar
+                                                        dataKey="value"
+                                                        radius={[0, 4, 4, 0]}
+                                                        name="Count"
+                                                        barSize={20}
+                                                        onClick={handleBarClick}
+                                                        style={{ cursor: 'pointer', outline: 'none' }}
+                                                    >
+                                                        {coOccurrenceData.map((entry, index) => (
+                                                            <Cell
+                                                                key={`cell-${index}`}
+                                                                fill={drawerOpen && drawerTitle === entry.name ? '#8c9196' : '#454f5b'}
+                                                            />
+                                                        ))}
+                                                        <LabelList
+                                                            dataKey="label"
+                                                            position="right"
+                                                            style={{ fontSize: 11, fill: '#202223' }}
+                                                        />
+                                                    </Bar>
+                                                </BarChart >
+                                            </ResponsiveContainer >
+                                        </div >
+                                    </BlockStack >
+                                </LegacyCard >
+                            </Layout.Section >
+
+
+                        </Layout >
+                    </BlockStack >
+                </Page >
+            </div >
             {drawerOpen && (
                 <DetailsDrawer
                     isOpen={drawerOpen}
                     onClose={handleDrawerClose}
                     title={drawerTitle}
                     details={drawerData}
+                    viewMode={viewMode}
+                    onViewModeChange={setViewMode}
                 />
             )}
-            <BlockStack gap="500">
-                {/* KPI Cards Section */}
-
-
-                <Layout>
-                    {/* Main Charts Section */}
-
-
-                    {/* Co-Occurrences Chart Section */}
-                    <Layout.Section>
-                        <LegacyCard sectioned>
-                            <BlockStack gap="400">
-                                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                                    <Text as="h2" variant="headingMd">Murilo - 121825: Co-Occurrences - 20 items</Text>
-                                    <ChartActions />
-                                </div>
-                                <div style={{ height: 600 }}>
-                                    <ResponsiveContainer width="100%" height="100%">
-                                        <BarChart
-                                            layout="vertical"
-                                            data={coOccurrenceData}
-                                            margin={{ top: 5, right: 80, left: 20, bottom: 5 }}
-                                        >
-                                            <CartesianGrid strokeDasharray="3 3" horizontal={false} vertical={true} stroke="#e1e3e5" />
-                                            <XAxis
-                                                type="number"
-                                                tick={{ fontSize: 11, fill: '#6D7175' }}
-                                                axisLine={{ stroke: '#e1e3e5' }}
-                                                tickLine={{ stroke: '#e1e3e5' }}
-                                                domain={[0, 'auto']}
-                                            >
-                                                <Label value="Comments" offset={-5} position="insideBottom" style={{ fontSize: 12, fill: '#202223' }} />
-                                            </XAxis>
-                                            <YAxis
-                                                dataKey="name"
-                                                type="category"
-                                                width={400}
-                                                tick={{ fontSize: 11, fill: '#202223' }}
-                                                interval={0}
-                                            />
-                                            <Tooltip
-                                                content={<CustomTooltip />}
-                                                cursor={{ fill: 'transparent' }}
-                                            />
-                                            <Bar
-                                                dataKey="value"
-                                                fill="#454f5b"
-                                                radius={[0, 4, 4, 0]}
-                                                name="Count"
-                                                barSize={20}
-                                                onClick={handleBarClick}
-                                                style={{ cursor: 'pointer' }}
-                                            >
-                                                <LabelList
-                                                    dataKey="label"
-                                                    position="right"
-                                                    style={{ fontSize: 11, fill: '#202223' }}
-                                                />
-                                            </Bar>
-                                        </BarChart>
-                                    </ResponsiveContainer>
-                                </div>
-                            </BlockStack>
-                        </LegacyCard>
-                    </Layout.Section>
-
-                    {/* Comments Analysis Chart Section */}
-                    <Layout.Section>
-                        <CommentsAnalysisChart onBarClick={handleBarClick} />
-                    </Layout.Section>
-
-                    {/* CrossTab Section */}
-                    <Layout.Section>
-                        <CrossTab />
-                    </Layout.Section>
-                </Layout>
-            </BlockStack>
-        </Page>
+        </div >
     );
 }

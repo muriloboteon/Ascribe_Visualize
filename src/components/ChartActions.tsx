@@ -1,5 +1,5 @@
 import { Button, Popover, ActionList } from '@shopify/polaris';
-import { MenuVerticalIcon, ImageIcon, FileIcon, EditIcon } from '@shopify/polaris-icons';
+import { MenuHorizontalIcon, ImageIcon, FileIcon, EditIcon } from '@shopify/polaris-icons';
 import { useState, useCallback } from 'react';
 
 export function ChartActions() {
@@ -8,7 +8,7 @@ export function ChartActions() {
     const toggleActive = useCallback(() => setActive((active) => !active), []);
 
     const activator = (
-        <Button onClick={toggleActive} variant="plain" icon={MenuVerticalIcon} accessibilityLabel="Chart options" />
+        <Button onClick={toggleActive} variant="plain" icon={MenuHorizontalIcon} accessibilityLabel="Chart options" />
     );
 
     return (
