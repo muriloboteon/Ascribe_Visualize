@@ -124,6 +124,7 @@ export function HeaderDash() {
             icon={FileIcon}
             onClick={toggleDataMenu}
             disclosure
+            variant="tertiary"
         >
             Data
         </Button>
@@ -213,7 +214,7 @@ export function HeaderDash() {
                     <div style={{
                         backgroundColor: '#ffffff',
                         borderBottom: '1px solid #e1e3e5',
-                        padding: '16px 32px',
+                        padding: '12px 16px',
                         display: 'flex',
                         alignItems: 'center',
                         justifyContent: 'space-between',
@@ -369,7 +370,7 @@ export function HeaderDash() {
                             </div>
 
                             {/* Metadata Subtitle */}
-                            <div style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '11px', color: '#5c5f62', paddingLeft: '4px' }}>
+                            <div style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '13px', color: '#5c5f62', paddingLeft: '4px' }}>
                                 <span>Question: <strong>Comments</strong></span>
                                 <span style={{ color: '#e1e3e5' }}>|</span>
                                 <span>Date: <strong>01/12/2026</strong></span>
@@ -397,7 +398,7 @@ export function HeaderDash() {
                                 <Button icon={RefreshIcon} variant="plain" accessibilityLabel="Refresh" />
                             </Tooltip>
 
-                            <Button icon={FilterIcon} onClick={handleAddFilter}>Add filter</Button>
+                            <Button icon={FilterIcon} onClick={handleAddFilter} variant="tertiary">Add filter</Button>
 
                             {/* Data Tools & Primary Actions Unified */}
                             <Popover
@@ -412,7 +413,7 @@ export function HeaderDash() {
                                     ]}
                                 />
                             </Popover>
-                            <Button icon={PlusIcon}>Add Chart</Button>
+                            <Button icon={PlusIcon} variant="tertiary">Add Chart</Button>
                             <Button icon={ShareIcon}>Share</Button>
                             <Button icon={ArrowDownIcon} variant="primary">Export</Button>
                         </div>
@@ -423,7 +424,7 @@ export function HeaderDash() {
                         <div style={{
                             backgroundColor: '#ffffff',
                             borderBottom: '1px solid #e1e3e5',
-                            padding: '8px 32px',
+                            padding: '12px 16px',
                             display: 'flex',
                             alignItems: 'center',
                             gap: '12px',
